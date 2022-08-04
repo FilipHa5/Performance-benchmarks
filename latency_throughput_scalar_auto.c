@@ -64,6 +64,7 @@ void main(void){
     for(i = 0; i<start_size; i++){
         sum += array[i];
     }
+    free (array);
 
     double nr_oper_local = num_var * 2.0 * num_iter;
     double time_elapsed = (stop-start)/CLOCKS_PER_SEC;
