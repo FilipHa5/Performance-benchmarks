@@ -6,10 +6,6 @@
 #include <math.h>
 
 #define WORKING_SET_SIZE 409600 //33554432
-#define STRIDE_MAX 15
-
-static struct timeval tp;
-static struct timezone tzp;
 
 double time_clock()
 {
@@ -30,9 +26,13 @@ void main()
 	long int array_size = WORKING_SET_SIZE;
 	clock_t start, stop;
 	int stride = 1;
+	int stride_max;
 	double wallclock_time;
 
-	for (stride; stride <= STRIDE_MAX; stride++){
+	printf("Inster max stride [nr of elements]:");
+	scanf("%d", &stride_max);
+
+	for (stride; stride <= stride_max; stride++){
 		double *array = malloc(array_size* sizeof(double));
     	//warmup
 		for (i = 0; i < array_size; i+=8){
@@ -59,5 +59,6 @@ void main()
 		}
 		printf("Stride %i, Time per accesses: %lf ns \n", stride, wallclock_time*1.0e9 / nr_accesses);
 		//printf("Throughput: %lf GB/s, \n", throughput);
+		if(stride == stride_max) printf("\n");
 	}
 }
