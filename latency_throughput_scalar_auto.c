@@ -4,7 +4,6 @@
 #include<sys/time.h>
 
 const int num_iter = 100000000;
-const int num_var = 10;
 
 double time_clock() {
   struct timeval tk;
@@ -23,11 +22,13 @@ void main(void) {
   double a, b, c, sum;
   double val = 1.000000;
   double add = 0.000001;
-  int i, j, current_size;
+  int i, j, current_size, num_var;
   int start_size = 1;
-  int max_size = 10;
-
   clock_t start, stop;
+
+  printf("\nInster max size for test [qty of variables]:");
+  scanf("%d", &num_var);
+
   for (current_size = start_size; current_size <= num_var; current_size++) {
     double * array = malloc(current_size * sizeof(double));
 
@@ -67,6 +68,7 @@ void main(void) {
     printf("\nNum var: %d", current_size);
     printf("\nResult of arithmetic operations: %lf\n", sum);
     printf("Time for executing %lf operations: %lf\n", nr_oper_local, wallclock_time);
-    printf("Performance: %lf GFLOP/s\n\n", nr_oper_local * 1.0e-9 / wallclock_time);
+    printf("Performance: %lf GFLOP/s\n", nr_oper_local * 1.0e-9 / wallclock_time);
+    if(current_size == num_var) printf("\n");
   }
 }
