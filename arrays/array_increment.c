@@ -44,7 +44,7 @@ void main (void){
             array[i][j] = 0 + ((double)(1-0)*rand()/(RAND_MAX));
         }
     }
-    // ------------- ACCESS BY COLUMNS ------------------------
+    // ------------- ACCESS BY ROWS ------------------------
     wallclock_time = time_clock();
     for(repeat=0; repeat<100; repeat++){
         for (i=0; i<dim_length; i++){
@@ -63,13 +63,13 @@ void main (void){
     int nr_oper = 100*dim_length*dim_length;
     perf = nr_oper/1.0e9/wallclock_time;
 
-    printf("\n == ACCESS BY COLUMNS == \n");
+    printf("\n == ACCESS BY ROWS == \n");
     printf("\nExecuted: %d increment operations", nr_oper);
     //printf("Sum: %lf", sum);
     printf("\nWallclock time: %lf s\n", wallclock_time);
     printf("Performance: %lf GFLOP/s\n\n", perf);
 
-    // ------------- ACCESS BY ROWS ------------------------
+    // ------------- ACCESS BY COLUMNS ------------------------
     wallclock_time = time_clock();
     for(repeat=0; repeat<100; repeat++){
         for (j=0; j<dim_length; j++){
@@ -88,7 +88,7 @@ void main (void){
     nr_oper = 100*dim_length*dim_length;
     perf = nr_oper/1.0e9/wallclock_time;
 
-    printf(" == ACCESS BY ROWS == \n");
+    printf(" == ACCESS BY COLUMNS == \n");
     printf("\nExecuted: %d increment operations", nr_oper);
     //printf("Sum: %lf", sum);
     printf("\nWallclock time: %lf s\n", wallclock_time);
