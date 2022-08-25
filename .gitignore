@@ -1,10 +1,12 @@
+# Ignore all
+*
+# Unignore all with extensions - ignoring files without extension
+*.*
 # ignore all .o
 *.o
-# Ignore a file without extension
-relative/path/to/dir/anotherfile
 # Ignore all dirs
 */
 # Ignore all .out
 *.out
-# Ignore all arrembly
+# Ignore all assembly
 *.s
