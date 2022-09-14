@@ -15,3 +15,8 @@ Benchmarks are designed for terminal version of execution. Is also possible to c
 <p class="has-line-data" data-line-start="21" data-line-end="22">Quite interesting thing in this (and not only) code is warm up part. Contemporary computers are “smart”. To reduce power consumption processor decreases clock frequency. So when we start intense calculations CPU increases its frequency. During code execution. So performance decreases. Check it on your own by commenting warm up loop in code, recompile and execute both versions under perf stat tool.</p>
 <pre><code class="has-line-data" data-line-start="23" data-line-end="25" class="language-sh">perf <span class="hljs-built_in">stat</span> ./latency_scalar
 </code></pre>
+<h3 class="code-line" data-line-start=25 data-line-end=26 ><a id="_latency_throughput_scalar_autoc__25"></a><em>latency_throughput_scalar_auto.c</em></h3>
+<p class="has-line-data" data-line-start="26" data-line-end="27">This is maximum throughput benchmarking for one logical processor. Different approach gives to the user possibility to declare number of variables to be processed, but it also gives a bit different results than approach used in latency_scalar.c. The reason are different processor’s instructions for arrays.</p>
+<p class="has-line-data" data-line-start="28" data-line-end="29">To obtain higher performance vectorization is required. After passing additional flag to compiler, where microarchitecture is specified, compiler will be more eager to optimize your code (for instance using vectorization), eg</p>
+<pre><code class="has-line-data" data-line-start="30" data-line-end="32" class="language-sh">gcc -O3 -march=core-avx2 latency_throughput_scalar_auto.c -o latency_throughput_scalar_auto
+</code></pre>
