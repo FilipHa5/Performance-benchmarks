@@ -7,9 +7,12 @@ Benchmarks are designed for terminal version of execution. Is also possible to c
 Make sure that you have installed gcc compiler. I recomend to use Linux because of comfort of use and availability of interesting options.
 
 ## _latency_scalar.c_
-This is benchmark for obtaining latency value. Latency is time for execution single scalar operation. Due to data dependencies  it's not using pipelining. If you need, for better understanding read about pipelining and superscalar processing 😊
+This is benchmark for obtaining latency value. Latency is time for execution single scalar operation. Due to data dependencies  it's not using pipelining. Execution of instruction n requires instruction n-1 to be executed.
 
-Compile code using high optimization, eg
+![image](https://upload.wikimedia.org/wikipedia/commons/2/2c/Nopipeline.png)
+Source: Wikipedia, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=140175
+
+To execute code compile it using high optimization, eg
 ```sh 
 gcc -O3 latency_scalar.c -o latency_scalar
 ```
@@ -25,6 +28,13 @@ perf stat ./latency_scalar
 ```
 ### _latency_throughput_scalar_auto.c_
 This is maximum throughput benchmarking for one logical processor. Different approach gives to the user possibility to declare number of variables to be processed, but it also gives a bit different results than approach used in latency_scalar.c. The reason are different processor's instructions for arrays. 
+
+Due to no data dependencies between different variables processor can execute multpile instructions at the same time. Schema of processing looks like this: 
+
+![image](https://upload.wikimedia.org/wikipedia/commons/2/21/Fivestagespipeline.png)
+Source: Wikipedia, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=140179
+
+While quantity of variables increases processor can use more pipelines, so performance increases too. Code is written to avoid memory accesses - variables are fetched to registers and stored there for calculations. After reaching certain number of variables decrease of performance was observed due to registers pressure, which is caused by limited registers size.
 
 To obtain higher performance vectorization is required. After passing additional flag to compiler, where microarchitecture is specified, compiler will be more eager to optimize your code (for instance using vectorization), eg
 ```sh
